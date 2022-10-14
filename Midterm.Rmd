@@ -1,0 +1,49 @@
+---
+title: "ADAMidterm"
+author: "Mara McKown"
+date: '2022-10-14'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Midterm ADA
+### Load packages and open libraries 
+```{r, echo=TRUE, message = F}
+pacman::p_load(odds.n.ends, blorr, lmtest, car, broom, tidyverse, jtools) 
+```
+
+### Question 3
+#### a. importing the dataset
+```{r}
+#import data set from Kim's github account
+titanic_data <- read_csv("https://raw.githubusercontent.com/kijohnson/Data/main/titanic.csv")
+```
+
+#### b. determining the median age for by passenger class
+```{r}
+#get some info about the data such as column names, etc.
+summary(titanic_data)
+
+#find out what type of class the data is (it is numeric)
+class(titanic_data$Pclass) 
+#change class to be factorial
+titanic_data <- titanic_data %>% 
+  mutate(Pclass = factor(Pclass, 1:3)
+)
+#double check it is now a factor variable
+class(titanic_data$Pclass) 
+
+#get summary stats including median age
+table1(~ Age | Pclass, data = titanic_data)
+```
+
+#### c. a plot that shows medians, spread of data, and outliers for the continuous variable age according to passenger class
+```{r}
+#make a boxplot and change theme so it is nicer for me to look at
+ggplot() +
+  geom_boxplot(data = titanic_data, aes(x = Pclass, y = Age)) +
+  theme_bw()
+```
