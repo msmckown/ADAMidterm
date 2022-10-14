@@ -47,3 +47,9 @@ ggplot() +
   geom_boxplot(data = titanic_data, aes(x = Pclass, y = Age)) +
   theme_bw()
 ```
+
+#### 4b. Next, add code to determine the percentage of males and females by class. Save this new version and push the new version to your Github repository.
+```{r}
+# percentage of males and females by class
+table1(~ Sex | Pclass, data = titanic_data)
+```
